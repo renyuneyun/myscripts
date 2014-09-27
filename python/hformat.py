@@ -33,7 +33,7 @@ def convert(token, units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']):
     return result
 
 def main():
-    units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
+    units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'TB']
     line = sys.stdin.readline()
     while line:
         tokens = line.split()
