@@ -4,10 +4,11 @@
 #   Author  :   renyuneyun
 #   E-mail  :   renyuneyun@gmail.com
 #   Date    :   14/06/03 10:41:21
-#   Desc    :   轉換數字單位使之更適合人類閱讀
+#   Desc    :   轉換數字單位使之更適合人類閱讀（B KB MB GB...）
 #
 
 import sys
+import math
 
 def is_num(possibleNum):
     try:
@@ -16,29 +17,26 @@ def is_num(possibleNum):
     except:
         return False
 
-def convert(token, units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']):
+def convert(token, units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], base = 1024):
     if not is_num(token):
         return token
-    length = len(token)
-    if length > 4:
-        token = float(token)
-        index = 0
-        while token > 1024:
-            index += 1
-            token = token / 1024
-        result = ('%.1f') % (token) + units[index]
-        #result = ' ' * (length - len(result)) + result
-    else:
-        result = token
+    result = token
+    token = float(token)
+    index = int(math.log(token, base))
+    if index >= len(units):
+        index = len(units) - 1
+    if index > 0:
+        result = ('%.2f') % (token / math.pow(base, index)) + units[index]
     return result
 
 def main():
-    units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'TB']
+    units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+    base = 1024
     line = sys.stdin.readline()
     while line:
         tokens = line.split()
         for token in tokens:
-            print(convert(token, units), end=' ')
+            print(convert(token, units, base), end=' ')
         print()
         line = sys.stdin.readline()
 
