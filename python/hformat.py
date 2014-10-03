@@ -22,6 +22,8 @@ def convert(token, units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
         return token
     result = token
     token = float(token)
+    if token == 0:
+        return 0
     index = int(math.log(token, base))
     if index >= len(units):
         index = len(units) - 1
