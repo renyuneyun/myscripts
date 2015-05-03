@@ -10,18 +10,20 @@
 import sys
 import math
 
-def is_num(possibleNum):
+def toNum(possibleNum, units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']):
     try:
-        float(possibleNum)
-        return True
+        return float(possibleNum)
     except:
-        return False
+        if possibleNum[-1] in units:
+            return float(possibleNum[:-1])
+        raise
 
 def convert(token, units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], base = 1024):
-    if not is_num(token):
-        return token
     result = token
-    token = float(token)
+    try:
+        token = toNum(token)
+    except:
+        return token
     if token == 0:
         return 0
     index = int(math.log(token, base))

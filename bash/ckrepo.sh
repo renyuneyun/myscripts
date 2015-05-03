@@ -1,7 +1,9 @@
 #!/usr/bin/bash
-TMPDIR=/tmp/cn_checker
+TMPDIR=/tmp/repo_checker
 APPS="`cat ${0%/*}/packages`"
+REPO="archlinuxcn"
 num=0
+UPLIST=""
 
 pre()
 {
@@ -18,7 +20,7 @@ download_aur_pkgbuild()
 }
 get_local_version()
 {
-	APP=`pacman -Q ${APP}`
+	APP=`pacman -Q ${app}`
 	local ret=$?
 	if [ $ret -ne '0' ]; then
 		#pacman -Q would throw the error message
@@ -41,6 +43,7 @@ diff_version()
 	if [ "${APP_VERSION}" != "${AUR_VERSION}" ]; then
 		echo -e "\033[1;36mThere is an update here\033[0m"
 		((num += 1))
+		return 1
 	else
 		echo -e "\033[1;35mNo need to update\033[0m"
 	fi
@@ -50,6 +53,10 @@ overview()
 	echo -en "\033[37mOverview:\033[0m "
 	if [ $num -gt 0 ]; then
 		echo -e "\033[36mYou need to submit updates\033[0m"
+		if [ -z $DISPLAY ]; then
+			export DISPLAY=':0';
+		fi
+		notify-send -t 0 "ArchlinuxCN repo-check" "發現更新：\n${UPLIST}"
 	else
 		echo -e "\033[36mNo updates found\033[0m"
 	fi
@@ -63,7 +70,7 @@ post()
 }
 
 pre
-for APP in $APPS; do
+for app in $APPS; do
 	get_local_version
 	if [ $? -ne '0' ]; then
 		continue;
@@ -72,8 +79,11 @@ for APP in $APPS; do
 	if [ $? -ne '0' ]; then
 		continue;
 	fi
-	echo "${APP} is now ${APP_VERSION} and ${AUR_VERSION} in AUR"
+	echo "${app} is now ${APP_VERSION} and ${AUR_VERSION} in AUR"
 	diff_version
+	if [ $? -ne '0' ]; then
+		UPLIST="${UPLIST}\n${app} ${APP_VERSION} -> ${AUR_VERSION}"
+	fi
 	rm PKGBUILD
 done;
 overview
