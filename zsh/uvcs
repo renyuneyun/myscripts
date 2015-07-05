@@ -1,0 +1,33 @@
+#!/bin/zsh
+
+if [ $# -lt 1 ]; then
+	echo "must specify a directory"
+	exit;
+fi
+cd $1;
+A=0
+r_update() {
+	if [ -d .git ]; then
+		let A=A+1;
+		echo `pwd`;
+		git pull || git fetch;
+	elif [ -d .hg ]; then
+		let A=A+1;
+		echo `pwd`;
+		hg pull;
+	elif [ -d .svn ]; then
+		let A=A+1;
+		echo `pwd`;
+		svn update;
+	else
+		for file in `ls`; do
+			if [ -d $file ]; then
+				cd $file;
+				r_update;
+				cd ..;
+			fi
+		done
+	fi;
+}
+r_update;
+echo "Total repos: $A"
