@@ -1,0 +1,9 @@
+/mnt/*
+
+/srv/ftp/*
+
+/var/cache/*/*
+/var/tmp/
+/var/abs/local/
+/var/lib/mongodb/journal/
+/var/lib/docker/

@@ -12,6 +12,10 @@
 	* downyou
 		* 調用you-get下載當前目錄下'urls'文件內列出的所有內容
 		* 忽略所有以#開頭的行
+	* backup\\
+		* 備份腳本（源自lilydjwg博客），通過syncall調用
+		* syncall
+			* 參數表：src dst [-w]
 * python\\
 	* hformat
 		* 轉換數字單位使之更適合人類閱讀（類似free -h中的-h）

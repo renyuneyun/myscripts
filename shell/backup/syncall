@@ -1,0 +1,49 @@
+#!/bin/zsh -e
+
+if [[ $# -lt 2 || $# -gt 3 ]]; then
+  echo "usage: $0 SRC_DIR DST_DIR [-w]"
+  exit 1
+fi
+
+src=$1
+dst=$2
+doit=$3
+
+if [[ $doit == -w ]]; then
+  dry=
+else
+  dry='-n'
+fi
+
+xfix=guhuabackup
+if [[ $doit == -w ]]; then
+	echo 'checking the need of generating initramfs and vmlinuz'
+	ver=`uname -r`
+	initramfs="/boot/$xfix/initramfs-$xfix-$ver.img"
+	kernel="/boot/$xfix/vmlinuz-$xfix-$ver"
+	if expr match $ver ".*lts"; then
+		orikernel="/boot/vmlinuz-linux-lts"
+	else
+		orikernel="/boot/vmlinuz-linux"
+	fi
+	if [ -n "/boot/$xfix/$initramfs" ]; then
+		echo generating
+		mkinitcpio -c "/etc/mkinitcpio.conf.$xfix" -g $initramfs
+		cp $orikernel $kernel
+	else
+		echo no need to change
+	fi
+fi
+
+echo -e '\n\n\n'
+echo '!!Synchronizing #boot#'
+ ./syncboot $src'boot/' $dst'boot/current/' $doit
+echo -e '\n\n\n'
+echo '!!Synchronizing #opt#'
+ ./syncopt $src'opt/' $dst'opt/current/' $doit
+echo -e '\n\n\n'
+echo '!!Synchronizing #root#'
+ ./syncroot $src $dst'root/current/' $doit
+echo -e '\n\n\n'
+echo '!!Synchronizing #home#'
+ ./synchome $src'home/' $dst'home/current/' $doit
