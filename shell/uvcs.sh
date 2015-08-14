@@ -9,15 +9,15 @@ A=0
 r_update() {
 	if [ -d .git ]; then
 		let A=A+1;
-		echo `pwd`;
-		git pull || git fetch;
+		echo "`pwd` TYPE:git";
+		git fetch --all && git pull;
 	elif [ -d .hg ]; then
 		let A=A+1;
-		echo `pwd`;
+		echo "`pwd` TYPE:hg";
 		hg pull;
 	elif [ -d .svn ]; then
 		let A=A+1;
-		echo `pwd`;
+		echo "`pwd` TYPE:svn";
 		svn update;
 	else
 		for file in `ls`; do
