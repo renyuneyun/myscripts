@@ -1,3 +1,28 @@
+/tmp/*
+/test_place/*
+/VirtualBox VMs/
+/VirtualBox/*
+/iso/*
+/Downloads/*
+/.purple.bak/
+/mtpt/download/*
+/.aMule/Temp/*
+
+/.AndroidStudio*
+/.cache/
+/.config/chromium/
+/.local/share/akonadi/
+/.local/share/baloo/index
+/.local/share/baloo/index-lock
+/.local/share/Steam/steamapps/
+/.local/share/Steam/
+/.PlayOnLinux/
+/.steampath
+/.steampid
+/.steam/
+/.thumbnails/
+/.wine/
+
 /*/tmp/*
 /*/test_place/*
 /*/VirtualBox VMs/
@@ -10,6 +35,12 @@
 
 /*/.cache/
 /*/.thumbnails/
-/*/.local/share/Steam/SteamApps/
+/*/.local/share/baloo/index
+/*/.local/share/baloo/index-lock
+/*/.local/share/Steam/steamapps/
+/*/.local/share/Steam/
+/*/.steampath
+/*/.steampid
+/*/.steam/
 /*/.wine/
 /*/.PlayOnLinux/
