@@ -2,4 +2,4 @@
 
 filename=/tmp/pacman-ps.png
 pacman-ps | draw-pacman-ps-graph.py $filename
-display $filename
+xdg-open $filename
