@@ -1,0 +1,48 @@
+#!/bin/sh
+
+containsElement () {
+  local e
+  for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
+  return 1
+}
+
+background_processes=(
+    "pasystray"
+    "klipper"
+    "pasystray"
+    "nm-applet"
+    "conky"
+    "fcitx"
+    )
+
+systemd_user_processes=(
+    "mpd"
+    "mpdscribble"
+    "redshift"
+    "pulseaudio"
+    "dbus"
+    )
+
+declare -A special_processes
+special_processes=(
+    ["aria2c"]="systemctl --user restart aria2"
+    #["powerline-daemon"]="powerline-daemon -k; powerline-daemon"
+    ["powerline-daemo"]="killall powerline-daemon; powerline-daemon"
+    ["gvfsd"]="systemctl --user restart gvfs-daemon.service"
+    )
+
+processes=`pacman-ps | tail -n +2 | awk '{print $2}' | sort | uniq`
+systemctl --user daemon-reload
+for process in $processes; do
+    if containsElement $process "${!special_processes[@]}"; then
+        echo $process ^^ ${special_processes[$process]}
+        sh -c ${special_processes[$process]}
+    elif containsElement $process "${systemd_user_processes[@]}"; then
+        echo $process ^^ "systemctl --user restart $process"
+        systemctl --user restart $process
+    elif containsElement $process "${background_processes[@]}"; then
+        echo $process ^^ "killall $process; $process"
+        killall $process
+        $process &
+    fi
+done
