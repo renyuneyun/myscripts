@@ -9,6 +9,20 @@
 # http://www.netcan666.com/2016/09/28/ssh%E9%9A%A7%E9%81%93%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E5%88%B0%E5%85%AC%E7%BD%91%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/
 # https://wiki.archlinux.org/index.php/X11vnc
 
+function print_help {
+	echo Use ssh reverse proxy to delegate VNC service
+	echo Run this script on the VNC server computer
+	echo $0 works in two modes: interactive and non-interactive
+	echo INTERACTIVE:
+	echo "  $0 -i"
+	echo NON-INTERACTIVE:
+	echo "  $0 proxy_server_address proxy_server_port [vnc_password]"
+}
+
+if [[ "$*" =~ '-h' ]]; then
+	print_help
+	exit 0
+fi
 if [[ "$*" =~ '-i' ]]; then
 	inter=true
 else
@@ -36,7 +50,7 @@ if $inter; then
 	echo Enter target port:
 	read tport
 else
-	tport=8765
+	tport=$2
 fi
 ssh -fNR $tport:localhost:5900 $server
 
@@ -44,7 +58,7 @@ if $inter; then
 	echo Enter your VNC password:
 	read password
 else
-	password=$2
+	password=$3
 fi
 
 if [ -z $password ]; then
