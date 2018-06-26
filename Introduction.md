@@ -23,6 +23,8 @@
 	* downyou
 		* 調用you-get下載當前目錄下'urls'文件內列出的所有內容
 		* 忽略所有以#開頭的行
+	* gpg-remote
+		* 對遠程文件（使用gpg）進行分離式簽名（結果放在遠程機器上）
 	* rx11vnc
 		* Remote X11VNC
 		* 通過遠程服務器中轉（ssh代理）x11vnc，以越過內網
