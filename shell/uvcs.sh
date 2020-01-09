@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+trap 'echo SIGEXIT received: exiting' EXIT
+
 if [ $# -lt 1 ]; then
 	echo "must specify a directory"
 	exit;
@@ -10,7 +12,7 @@ r_update() {
 	if [ -d .git ]; then
 		let A=A+1;
 		echo "`pwd` TYPE:git";
-		git fetch --all && git pull;
+		git fetch --all && git pull && git submodule sync && git submodule update --recursive --checkout;
 	elif [ -d .hg ]; then
 		let A=A+1;
 		echo "`pwd` TYPE:hg";
