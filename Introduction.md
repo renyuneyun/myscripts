@@ -1,4 +1,5 @@
 ## 簡介 ##
+
 * pacman-ps/
 	* 調用samcv的[pacman-ps](https://gitlab.com/samcv/ps-lsof)的外圍工具
 	* pacman-ps-graph
@@ -8,6 +9,9 @@
 * python/
 	* hformat
 		* 轉換數字單位使之更適合人類閱讀（類似free -h中的-h）
+	* exif-reform
+		* 整理exif時間信息，使得所有*數字化晚於創建*的時間全部統一爲創建時間
+		* 接收一個參數，爲目標目錄；我的用途中僅處理了`*.jpg`文件
 * shell/
 	* backup/
 		* 備份腳本（源自lilydjwg博客），通過syncall調用
