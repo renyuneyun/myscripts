@@ -24,6 +24,8 @@
 	* cmdscrot
 		* 對命令行輸出進行長“截圖”（[說明](http://renyuneyun.is-programmer.com/2017/4/5/mimicing_long_screenshot_of_shell_output.209191.html)）
 		* 依賴util-linux、ansi2html以及CutyCapt
+	* cut-media
+		* 刪除媒體（如音頻）的前或後幾秒，不進行重新編碼。
 	* downyou
 		* 調用you-get下載當前目錄下'urls'文件內列出的所有內容
 		* 忽略所有以#開頭的行
