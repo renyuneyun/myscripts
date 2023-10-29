@@ -12,6 +12,8 @@
 	* exif-reform
 		* 整理exif時間信息，使得所有*數字化晚於創建*的時間全部統一爲創建時間
 		* 接收一個參數，爲目標目錄；我的用途中僅處理了`*.jpg`文件
+	* python-open-flags-reverse.py
+		* 解釋open()函數的flags——現實flags數值對應的flag名稱
 * shell/
 	* backup/
 		* 備份腳本（源自lilydjwg博客），通過syncall調用
