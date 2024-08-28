@@ -41,6 +41,10 @@
 	* mirrow-window
 		* 鏡像某一本地窗口
 		* 僅支持X11；使用VNC
+	* rename-as-vim-replace
+		* 將（文件批量）重命名信息改爲vim的替換命令
+		* 重命名信息是形如`a -> b`的多行
+			* pipe-rename的輸出即是這種形式
 	* rx11vnc
 		* Remote X11VNC
 		* 通過遠程服務器中轉（ssh代理）x11vnc，以越過內網
