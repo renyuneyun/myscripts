@@ -12,6 +12,9 @@
 	* exif-reform
 		* 整理exif時間信息，使得所有*數字化晚於創建*的時間全部統一爲創建時間
 		* 接收一個參數，爲目標目錄；我的用途中僅處理了`*.jpg`文件
+	* merge-json
+		* 合併JSON文件，儘量保留所有數據
+		* 可通過參數調整行爲來在特定深度進行覆蓋而非合併
 	* python-open-flags-reverse.py
 		* 解釋open()函數的flags——現實flags數值對應的flag名稱
 * shell/
